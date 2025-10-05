@@ -1,31 +1,497 @@
-﻿@model IEnumerable<Product>
+﻿@model IEnumerable<Agro_Saffron.Models.Product>
 
 @{
-    ViewData["Title"] = "Home - Agro Saffron";
+    ViewData["Title"] = "Agro Saffron - Premium Quality Saffron";
 }
 
-<div class="text-center mb-5">
-    <h1 class="display-4">Welcome to Agro Saffron</h1>
-    <p class="lead">Your one-stop destination for products</p>
-</div>
-
-@* <h2 class="mb-4">Featured Products</h2>
-
-<div class="row">
-    @foreach (var product in Model)
-    {
-        <div class="col-md-3 mb-4">
-            <div class="card h-100">
-                <img src="@product.ImageUrl" class="card-img-top" alt="@product.Name" style="height: 200px; object-fit: cover;">
-                <div class="card-body d-flex flex-column">
-                    <h5 class="card-title">@product.Name</h5>
-                    <p class="card-text flex-grow-1">@product.Description</p>
-                    <div class="mt-auto">
-                        <p class="price h5 text-success">$@product.Price</p>
-                        <a href="#" class="btn btn-primary">View Details</a>
-                    </div>
+<!-- Modern Hero Section -->
+<section class="hero-modern bg-dark text-white">
+    <div class="container">
+        <div class="row align-items-center min-vh-100">
+            <div class="col-lg-6">
+                <h1 class="display-3 fw-bold mb-4">
+                    Premium <span class="text-warning">Saffron</span><br>Perfected by Nature
+                </h1>
+                <p class="lead mb-4 opacity-75">
+                    Experience the world's most precious spice, meticulously sourced and crafted for exceptional quality.
+                    Our saffron represents the pinnacle of purity, aroma, and flavor.
+                </p>
+                <div class="d-flex gap-3 flex-wrap">
+                    <a href="#products" class="btn btn-warning btn-lg px-4 py-3">
+                        <i class="fas fa-shopping-bag me-2"></i>Explore Collection
+                    </a>
+                    <a href="#about" class="btn btn-outline-light btn-lg px-4 py-3">
+                        <i class="fas fa-play-circle me-2"></i>Our Story
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="hero-image-container position-relative">
+                    <div class="hero-shape-1"></div>
+                    <div class="hero-shape-2"></div>
+                    <img src="/images/hero-saffron.jpg"
+                         alt="Premium Saffron"
+                         class="img-fluid rounded-3 position-relative z-2"
+                         onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAwIiBoZWlnaHQ9IjUwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjMWYyOTNlIi8+CiAgPHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIyNCIgZmlsbD0iI2ZmZmZmZiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkFHIENyb3AgU2FmZnJvbjwvdGV4dD4KICA8dGV4dCB4PSI1MCUiIHk9IjU1JSIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjE0IiBmaWxsPSIjOWNhM2ZmIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkeT0iMWVtIj5QcmVtaXVtIFF1YWxpdHkgU2FmZnJvbjwvdGV4dD4KPC9zdmc+'">
                 </div>
             </div>
         </div>
+    </div>
+</section>
+
+<!-- Stats Section -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="row g-4 text-center">
+            <div class="col-md-3">
+                <div class="stat-item">
+                    <h3 class="display-4 fw-bold text-warning mb-2">100%</h3>
+                    <p class="text-muted mb-0">Pure Saffron</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="stat-item">
+                    <h3 class="display-4 fw-bold text-warning mb-2">24h</h3>
+                    <p class="text-muted mb-0">Fast Delivery</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="stat-item">
+                    <h3 class="display-4 fw-bold text-warning mb-2">5K+</h3>
+                    <p class="text-muted mb-0">Happy Customers</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="stat-item">
+                    <h3 class="display-4 fw-bold text-warning mb-2">1+</h3>
+                    <p class="text-muted mb-0">Years Experience</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Features Grid -->
+<section class="py-5 bg-white">
+    <div class="container">
+        <div class="row mb-5">
+            <div class="col-lg-8 mx-auto text-center">
+                <h2 class="display-5 fw-bold text-dark mb-3">Why Choose Agro Saffron?</h2>
+                <p class="lead text-muted">We combine traditional expertise with modern quality standards</p>
+            </div>
+        </div>
+        <div class="row g-4">
+            <div class="col-lg-4 col-md-6">
+                <div class="feature-modern-card p-4 h-100">
+                    <div class="feature-icon-modern bg-warning bg-opacity-10 rounded-3 d-inline-flex align-items-center justify-content-center mb-4"
+                         style="width: 80px; height: 80px;">
+                        <i class="fas fa-microscope fa-2x text-warning"></i>
+                    </div>
+                    <h4 class="fw-bold mb-3">Laboratory Tested</h4>
+                    <p class="text-muted mb-0">Every batch undergoes rigorous testing for purity, color strength, and aroma quality.</p>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="feature-modern-card p-4 h-100">
+                    <div class="feature-icon-modern bg-warning bg-opacity-10 rounded-3 d-inline-flex align-items-center justify-content-center mb-4"
+                         style="width: 80px; height: 80px;">
+                        <i class="fas fa-leaf fa-2x text-warning"></i>
+                    </div>
+                    <h4 class="fw-bold mb-3">Sustainable Farming</h4>
+                    <p class="text-muted mb-0">Ethically sourced from sustainable farms that prioritize environmental responsibility.</p>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="feature-modern-card p-4 h-100">
+                    <div class="feature-icon-modern bg-warning bg-opacity-10 rounded-3 d-inline-flex align-items-center justify-content-center mb-4"
+                         style="width: 80px; height: 80px;">
+                        <i class="fas fa-award fa-2x text-warning"></i>
+                    </div>
+                    <h4 class="fw-bold mb-3">Award Winning</h4>
+                    <p class="text-muted mb-0">Recognized internationally for exceptional quality and superior flavor profile.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Products Showcase -->
+<section id="products" class="py-5 bg-light">
+    <div class="container">
+        <div class="row mb-5">
+            <div class="col-lg-8 mx-auto text-center">
+                <h2 class="display-5 fw-bold text-dark mb-3">Our Premium Collection</h2>
+                <p class="lead text-muted">Carefully curated saffron products for every need</p>
+            </div>
+        </div>
+
+        @{
+            var products = Model?.ToList() ?? new List<Agro_Saffron.Models.Product>();
+        }
+
+        @if (products.Any())
+        {
+            <div class="row g-4">
+                @foreach (var product in products.Take(3))
+                {
+                    <div class="col-lg-4 col-md-6">
+                        <div class="card product-modern-card border-0 shadow-sm h-100">
+                            <div class="position-relative overflow-hidden">
+                                <img src="@product.ImageUrl" class="card-img-top product-modern-image" alt="@product.Name"
+                                     onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZmZlNWNjIi8+CiAgPHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxOCIgZmlsbD0iIzljNzgwMCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkFHIENyb3AgU2FmZnJvbjwvdGV4dD4KPC9zdmc+'">
+                                <div class="product-overlay">
+                                    <div class="product-actions">
+                                        <a href="@Url.Action("Details", "Products", new { id = product.Id })" class="btn btn-warning btn-sm">
+                                            <i class="fas fa-eye me-1"></i>View
+                                        </a>
+                                        @if (product.StockQuantity > 0)
+                                        {
+                                            <button class="btn btn-light btn-sm add-to-cart"
+                                                    data-product-id="@product.Id"
+                                                    data-product-name="@product.Name">
+                                                <i class="fas fa-shopping-cart me-1"></i>Add
+                                            </button>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold">@product.Name</h5>
+                                <p class="card-text text-muted small mb-3">@product.Description</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span class="h5 text-dark fw-bold mb-0">$@product.Price.ToString("F2")</span>
+                                    <span class="badge bg-success">In Stock</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+
+            <div class="text-center mt-5">
+                <a href="@Url.Action("Index", "Products")" class="btn btn-outline-dark btn-lg">
+                    View Complete Collection <i class="fas fa-arrow-right ms-2"></i>
+                </a>
+            </div>
+        }
+        else
+        {
+            <div class="text-center py-5">
+                <div class="row justify-content-center">
+                    <div class="col-md-8">
+                        <div class="placeholder-products">
+                            <div class="row g-4">
+                                <div class="col-md-4">
+                                    <div class="card placeholder-card border-0 bg-white shadow-sm h-100">
+                                        <div class="card-body text-center p-4">
+                                            <div class="placeholder-icon bg-warning bg-opacity-10 rounded-3 d-inline-flex align-items-center justify-content-center mb-3"
+                                                 style="width: 80px; height: 80px;">
+                                                <i class="fas fa-gem fa-2x text-warning"></i>
+                                            </div>
+                                            <h5>Premium Threads</h5>
+                                            <p class="text-muted small">Coming Soon</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="card placeholder-card border-0 bg-white shadow-sm h-100">
+                                        <div class="card-body text-center p-4">
+                                            <div class="placeholder-icon bg-warning bg-opacity-10 rounded-3 d-inline-flex align-items-center justify-content-center mb-3"
+                                                 style="width: 80px; height: 80px;">
+                                                <i class="fas fa-box-open fa-2x text-warning"></i>
+                                            </div>
+                                            <h5>Gift Packages</h5>
+                                            <p class="text-muted small">Coming Soon</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="card placeholder-card border-0 bg-white shadow-sm h-100">
+                                        <div class="card-body text-center p-4">
+                                            <div class="placeholder-icon bg-warning bg-opacity-10 rounded-3 d-inline-flex align-items-center justify-content-center mb-3"
+                                                 style="width: 80px; height: 80px;">
+                                                <i class="fas fa-mortar-pestle fa-2x text-warning"></i>
+                                            </div>
+                                            <h5>Saffron Powder</h5>
+                                            <p class="text-muted small">Coming Soon</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="py-5 bg-dark text-white">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-8">
+                <h3 class="fw-bold mb-3">Ready to Experience the Difference?</h3>
+                <p class="text-light opacity-75 mb-0">Join thousands of customers who trust Agro Saffron for uncompromising quality.</p>
+            </div>
+            <div class="col-lg-4 text-lg-end">
+                <a href="@Url.Action("Index", "Products")" class="btn btn-warning btn-lg px-4">
+                    Shop Now <i class="fas fa-arrow-right ms-2"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Toast Notification -->
+<div class="toast-container position-fixed top-0 end-0 p-3">
+    <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header bg-dark text-white">
+            <i class="fas fa-shopping-cart text-warning me-2"></i>
+            <strong class="me-auto">Cart Updated</strong>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast"></button>
+        </div>
+        <div class="toast-body" id="toast-message">
+            Product added to cart!
+        </div>
+    </div>
+</div>
+
+<style>
+    /* Modern Hero Section */
+    .hero-modern {
+        background: linear-gradient(135deg, #1f293e 0%, #374151 100%);
+        position: relative;
+        overflow: hidden;
     }
-</div> *@
+
+        .hero-modern::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent 0%, rgba(245, 158, 11, 0.1) 100%);
+        }
+
+    .min-vh-100 {
+        min-height: 100vh;
+    }
+
+    .hero-image-container {
+        position: relative;
+    }
+
+    .hero-shape-1 {
+        position: absolute;
+        top: -20px;
+        right: -20px;
+        width: 200px;
+        height: 200px;
+        background: linear-gradient(45deg, #f59e0b, #d97706);
+        border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+        opacity: 0.1;
+        animation: float 6s ease-in-out infinite;
+    }
+
+    .hero-shape-2 {
+        position: absolute;
+        bottom: -30px;
+        left: -30px;
+        width: 150px;
+        height: 150px;
+        background: linear-gradient(45deg, #10b981, #059669);
+        border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+        opacity: 0.1;
+        animation: float 8s ease-in-out infinite;
+    }
+
+    /* Modern Cards */
+    .feature-modern-card {
+        background: white;
+        border-radius: 12px;
+        transition: all 0.3s ease;
+        border: 1px solid #f3f4f6;
+    }
+
+        .feature-modern-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            border-color: #f59e0b;
+        }
+
+    .product-modern-card {
+        transition: all 0.3s ease;
+        border-radius: 12px;
+        overflow: hidden;
+    }
+
+        .product-modern-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+        }
+
+    .product-modern-image {
+        height: 250px;
+        object-fit: cover;
+        transition: transform 0.3s ease;
+    }
+
+    .product-modern-card:hover .product-modern-image {
+        transform: scale(1.05);
+    }
+
+    .product-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0,0,0,0.7);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    .product-modern-card:hover .product-overlay {
+        opacity: 1;
+    }
+
+    .product-actions {
+        display: flex;
+        gap: 10px;
+    }
+
+    /* Stats */
+    .stat-item {
+        padding: 20px;
+    }
+
+    /* Animations */
+    @@keyframes float {
+        0%, 100% {
+            transform: translateY(0px) rotate(0deg);
+        }
+
+        50% {
+            transform: translateY(-20px) rotate(5deg);
+        }
+    }
+
+    /* Placeholder Cards */
+    .placeholder-card {
+        transition: all 0.3s ease;
+    }
+
+        .placeholder-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+
+    .placeholder-icon {
+        transition: transform 0.3s ease;
+    }
+
+    .placeholder-card:hover .placeholder-icon {
+        transform: scale(1.1);
+    }
+
+    /* Toast */
+    .toast {
+        border-radius: 8px;
+        border: none;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    }
+</style>
+
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize Bootstrap toast
+            const toastEl = document.getElementById('liveToast');
+            const toast = new bootstrap.Toast(toastEl, { delay: 3000 });
+
+            // Add to cart functionality
+            document.querySelectorAll('.add-to-cart').forEach(button => {
+                button.addEventListener('click', function() {
+                    const productId = this.getAttribute('data-product-id');
+                    const productName = this.getAttribute('data-product-name');
+                    const quantity = 1;
+
+                    addToCart(productId, productName, quantity, this);
+                });
+            });
+
+            function addToCart(productId, productName, quantity, buttonElement) {
+                const originalText = buttonElement.innerHTML;
+                buttonElement.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+                buttonElement.disabled = true;
+
+                fetch('/ShoppingCart/AddToCart', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-Requested-With': 'XMLHttpRequest'
+                    },
+                    body: JSON.stringify({ productId: productId, quantity: quantity })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        updateCartCount(data.cartCount);
+                        const message = `"${productName}" added to cart!`;
+                        showToast(message, 'success');
+                    } else {
+                        showToast(data.message, 'error');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    showToast('Error adding product to cart', 'error');
+                })
+                .finally(() => {
+                    buttonElement.innerHTML = originalText;
+                    buttonElement.disabled = false;
+                });
+            }
+
+            function updateCartCount(count) {
+                const cartCountElements = document.querySelectorAll('.cart-count');
+                cartCountElements.forEach(element => {
+                    element.textContent = count;
+                });
+            }
+
+            function showToast(message, type = 'success') {
+                const toastMessage = document.getElementById('toast-message');
+                const toastEl = document.getElementById('liveToast');
+
+                toastMessage.textContent = message;
+                if (type === 'error') {
+                    toastEl.querySelector('.toast-header').className = 'toast-header bg-danger text-white';
+                } else {
+                    toastEl.querySelector('.toast-header').className = 'toast-header bg-dark text-white';
+                }
+
+                toast.show();
+            }
+
+            // Load initial cart count
+            updateCartCountOnLoad();
+
+            function updateCartCountOnLoad() {
+                fetch('/ShoppingCart/GetCartCount')
+                    .then(response => response.json())
+                    .then(data => {
+                        updateCartCount(data.count);
+                    })
+                    .catch(error => {
+                        console.error('Error fetching cart count:', error);
+                    });
+            }
+        });
+    </script>
+}

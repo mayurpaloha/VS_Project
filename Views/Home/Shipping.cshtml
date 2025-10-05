@@ -1,0 +1,144 @@
+﻿@{
+    ViewData["Title"] = "Shipping Policy - Agro Saffron";
+}
+
+<!-- Hero Section -->
+<section class="hero-shipping bg-dark text-white py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center">
+                <h1 class="display-4 fw-bold mb-4">Shipping Policy</h1>
+                <p class="lead opacity-75">
+                    Fast, reliable delivery of your premium saffron products
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Shipping Content -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-10 mx-auto">
+                <div class="shipping-content bg-white rounded-3 shadow-sm p-5">
+                    <!-- Shipping Methods -->
+                    <div class="mb-5">
+                        <h2 class="h3 fw-bold text-dark mb-4">Shipping Methods & Times</h2>
+                        <div class="row g-4">
+                            <div class="col-md-6">
+                                <div class="shipping-method-card p-4 border rounded-3 h-100">
+                                    <div class="shipping-icon bg-warning bg-opacity-10 rounded-3 d-inline-flex align-items-center justify-content-center mb-3"
+                                         style="width: 60px; height: 60px;">
+                                        <i class="fas fa-shipping-fast text-warning"></i>
+                                    </div>
+                                    <h4 class="h5 fw-bold text-dark mb-3">Standard Shipping</h4>
+                                    <p class="text-muted mb-2"><strong>Delivery Time:</strong> 3-5 business days</p>
+                                    <p class="text-muted mb-2"><strong>Cost:</strong> ₹99</p>
+                                    <p class="text-muted mb-0">Free on orders above ₹2000</p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="shipping-method-card p-4 border rounded-3 h-100">
+                                    <div class="shipping-icon bg-warning bg-opacity-10 rounded-3 d-inline-flex align-items-center justify-content-center mb-3"
+                                         style="width: 60px; height: 60px;">
+                                        <i class="fas fa-rocket text-warning"></i>
+                                    </div>
+                                    <h4 class="h5 fw-bold text-dark mb-3">Express Shipping</h4>
+                                    <p class="text-muted mb-2"><strong>Delivery Time:</strong> 1-2 business days</p>
+                                    <p class="text-muted mb-2"><strong>Cost:</strong> ₹199</p>
+                                    <p class="text-muted mb-0">Available for major cities</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Processing Time -->
+                    <div class="mb-5">
+                        <h2 class="h3 fw-bold text-dark mb-3">Order Processing</h2>
+                        <p class="text-muted">
+                            Orders are processed within 24 hours during business days (Monday-Friday). Orders placed on weekends or holidays will be processed the next business day.
+                        </p>
+                    </div>
+
+                    <!-- Shipping Areas -->
+                    <div class="mb-5">
+                        <h2 class="h3 fw-bold text-dark mb-3">Shipping Areas</h2>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h4 class="h5 fw-bold text-dark mb-3">Domestic Shipping</h4>
+                                <ul class="text-muted">
+                                    <li>Available throughout India</li>
+                                    <li>Free shipping on orders above ₹2000</li>
+                                    <li>Remote areas may have extended delivery times</li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <h4 class="h5 fw-bold text-dark mb-3">International Shipping</h4>
+                                <ul class="text-muted">
+                                    <li>Available to select countries</li>
+                                    <li>Customs duties and taxes may apply</li>
+                                    <li>Delivery times: 7-14 business days</li>
+                                    <li>Contact us for international shipping rates</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tracking -->
+                    <div class="mb-5">
+                        <h2 class="h3 fw-bold text-dark mb-3">Order Tracking</h2>
+                        <p class="text-muted">
+                            Once your order ships, you will receive a tracking number via email. You can track your package using our tracking portal or the carrier's website.
+                        </p>
+                    </div>
+
+                    <!-- Delivery Issues -->
+                    <div class="mb-5">
+                        <h2 class="h3 fw-bold text-dark mb-3">Delivery Issues</h2>
+                        <p class="text-muted mb-3">If you experience any delivery issues:</p>
+                        <ul class="text-muted">
+                            <li>Contact us within 48 hours of expected delivery</li>
+                            <li>Provide your order number and tracking information</li>
+                            <li>We will work with the carrier to resolve the issue</li>
+                            <li>Lost packages will be replaced or refunded</li>
+                        </ul>
+                    </div>
+
+                    <!-- Contact Information -->
+                    <div class="mt-5 p-4 bg-light rounded-3">
+                        <h3 class="h4 fw-bold text-dark mb-3">Need Help with Shipping?</h3>
+                        <p class="text-muted mb-2">
+                            Contact our customer support team for shipping-related inquiries:
+                        </p>
+                        <p class="text-muted mb-0">
+                            <strong>Email:</strong> shipping@agrosaffron.com<br>
+                            <strong>Phone:</strong> +91 98765 43210 (Mon-Fri, 9AM-6PM)
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    .hero-shipping {
+        background: linear-gradient(135deg, #1f293e 0%, #374151 100%);
+    }
+
+    .shipping-method-card {
+        transition: all 0.3s ease;
+    }
+
+        .shipping-method-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            border-color: #f59e0b !important;
+        }
+
+    .shipping-content h2 {
+        border-bottom: 2px solid #f59e0b;
+        padding-bottom: 10px;
+    }
+</style>
