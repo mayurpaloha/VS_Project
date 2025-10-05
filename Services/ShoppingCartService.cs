@@ -1,10 +1,22 @@
-﻿using Agro_Saffron.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using Agro_Saffron.Data;
 using Agro_Saffron.Models;
-using Microsoft.EntityFrameworkCore;
 
 namespace Agro_Saffron.Services
 {
-    public class ShoppingCartService
+    public interface IShoppingCartService
+    {
+        Task AddToCartAsync(int productId, int quantity = 1);
+        Task RemoveFromCartAsync(int itemId);
+        Task UpdateQuantityAsync(int itemId, int quantity);
+        Task ClearCartAsync();
+        Task<List<ShoppingCartItem>> GetCartItemsAsync();
+        Task<int> GetCartItemsCountAsync();
+        Task<decimal> GetCartTotalAsync();
+        Task<ShoppingCartItem> GetCartItemAsync(int itemId);
+    }
+
+    public class ShoppingCartService : IShoppingCartService
     {
         private readonly ApplicationDbContext _context;
         private readonly IHttpContextAccessor _httpContextAccessor;
@@ -29,15 +41,37 @@ namespace Agro_Saffron.Services
             return cartId;
         }
 
-        public async Task AddToCart(int productId, int quantity = 1)
+        public async Task AddToCartAsync(int productId, int quantity = 1)
         {
             var cartId = GetCartId();
-            var cartItem = await _context.ShoppingCartItems
-                .FirstOrDefaultAsync(c => c.ShoppingCartId == cartId && c.ProductId == productId);
+            var product = await _context.Products.FindAsync(productId);
 
-            if (cartItem == null)
+            if (product == null || !product.IsActive)
             {
-                cartItem = new ShoppingCartItem
+                throw new ArgumentException("Product not found or not available");
+            }
+
+            if (quantity > product.StockQuantity)
+            {
+                throw new ArgumentException("Requested quantity exceeds available stock");
+            }
+
+            var existingItem = await _context.ShoppingCartItems
+                .FirstOrDefaultAsync(item => item.ShoppingCartId == cartId && item.ProductId == productId);
+
+            if (existingItem != null)
+            {
+                // Update existing item
+                existingItem.Quantity += quantity;
+                if (existingItem.Quantity > product.StockQuantity)
+                {
+                    existingItem.Quantity = product.StockQuantity;
+                }
+            }
+            else
+            {
+                // Add new item
+                var cartItem = new ShoppingCartItem
                 {
                     ShoppingCartId = cartId,
                     ProductId = productId,
@@ -45,40 +79,14 @@ namespace Agro_Saffron.Services
                 };
                 _context.ShoppingCartItems.Add(cartItem);
             }
-            else
-            {
-                cartItem.Quantity += quantity;
-            }
 
             await _context.SaveChangesAsync();
         }
 
-        public async Task<List<ShoppingCartItem>> GetCartItems()
+        public async Task RemoveFromCartAsync(int itemId)
         {
-            var cartId = GetCartId();
-            return await _context.ShoppingCartItems
-                .Where(c => c.ShoppingCartId == cartId)
-                .Include(c => c.Product)
-                .ThenInclude(p => p.Category)
-                .ToListAsync();
-        }
-
-        public async Task<decimal> GetCartTotal()
-        {
-            var cartId = GetCartId();
-            var items = await _context.ShoppingCartItems
-                .Where(c => c.ShoppingCartId == cartId)
-                .Include(c => c.Product)
-                .ToListAsync();
-
-            return items.Sum(item => item.Quantity * item.Product.Price);
-        }
-
-        public async Task RemoveFromCart(int productId)
-        {
-            var cartId = GetCartId();
             var cartItem = await _context.ShoppingCartItems
-                .FirstOrDefaultAsync(c => c.ShoppingCartId == cartId && c.ProductId == productId);
+                .FirstOrDefaultAsync(item => item.Id == itemId && item.ShoppingCartId == GetCartId());
 
             if (cartItem != null)
             {
@@ -87,15 +95,75 @@ namespace Agro_Saffron.Services
             }
         }
 
-        public async Task ClearCart()
+        public async Task UpdateQuantityAsync(int itemId, int quantity)
+        {
+            if (quantity < 1)
+            {
+                await RemoveFromCartAsync(itemId);
+                return;
+            }
+
+            var cartItem = await _context.ShoppingCartItems
+                .Include(item => item.Product)
+                .FirstOrDefaultAsync(item => item.Id == itemId && item.ShoppingCartId == GetCartId());
+
+            if (cartItem != null)
+            {
+                if (quantity > cartItem.Product.StockQuantity)
+                {
+                    quantity = cartItem.Product.StockQuantity;
+                }
+                cartItem.Quantity = quantity;
+                await _context.SaveChangesAsync();
+            }
+        }
+
+        public async Task ClearCartAsync()
         {
             var cartId = GetCartId();
             var cartItems = await _context.ShoppingCartItems
-                .Where(c => c.ShoppingCartId == cartId)
+                .Where(item => item.ShoppingCartId == cartId)
                 .ToListAsync();
 
             _context.ShoppingCartItems.RemoveRange(cartItems);
             await _context.SaveChangesAsync();
+        }
+
+        public async Task<List<ShoppingCartItem>> GetCartItemsAsync()
+        {
+            var cartId = GetCartId();
+            return await _context.ShoppingCartItems
+                .Where(item => item.ShoppingCartId == cartId)
+                .Include(item => item.Product)
+                .ThenInclude(p => p.Category)
+                .OrderBy(item => item.CreatedDate)
+                .ToListAsync();
+        }
+
+        public async Task<int> GetCartItemsCountAsync()
+        {
+            var cartId = GetCartId();
+            return await _context.ShoppingCartItems
+                .Where(item => item.ShoppingCartId == cartId)
+                .SumAsync(item => item.Quantity);
+        }
+
+        public async Task<decimal> GetCartTotalAsync()
+        {
+            var cartId = GetCartId();
+            var items = await _context.ShoppingCartItems
+                .Where(item => item.ShoppingCartId == cartId)
+                .Include(item => item.Product)
+                .ToListAsync();
+
+            return items.Sum(item => item.TotalPrice);
+        }
+
+        public async Task<ShoppingCartItem> GetCartItemAsync(int itemId)
+        {
+            return await _context.ShoppingCartItems
+                .Include(item => item.Product)
+                .FirstOrDefaultAsync(item => item.Id == itemId && item.ShoppingCartId == GetCartId());
         }
     }
 }

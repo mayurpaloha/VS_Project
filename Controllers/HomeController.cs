@@ -19,13 +19,14 @@ namespace Agro_Saffron.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var featuredProducts = await _context.Products
-                .Where(p => p.IsActive)
-                .Include(p => p.Category)
-                .Take(8)
-                .ToListAsync();
+            //var featuredProducts = await _context.Products
+            //    .Where(p => p.IsActive)
+            //    .Include(p => p.Category)
+            //    .Take(8)
+            //    .ToListAsync();
 
-            return View(featuredProducts);
+            //return View(featuredProducts);
+            return View();
         }
 
         public IActionResult Privacy()

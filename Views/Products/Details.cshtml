@@ -1,0 +1,437 @@
+﻿@model Agro_Saffron.Models.ViewModels.ProductDetailViewModel
+
+@{
+    ViewData["Title"] = Model.Product.Name;
+}
+
+<div class="container py-4">
+    <!-- Breadcrumb -->
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="@Url.Action("Index", "Home")">Home</a></li>
+            <li class="breadcrumb-item"><a href="@Url.Action("Index", "Products")">Products</a></li>
+            <li class="breadcrumb-item"><a href="@Url.Action("Index", "Products", new { categoryId = Model.Product.CategoryId })">@Model.Product.Category.Name</a></li>
+            <li class="breadcrumb-item active" aria-current="page">@Model.Product.Name</li>
+        </ol>
+    </nav>
+
+    <div class="row">
+        <!-- Product Images -->
+        <div class="col-md-6">
+            <div class="card">
+                <img src="@Model.Product.ImageUrl" class="card-img-top" alt="@Model.Product.Name"
+                     style="max-height: 500px; object-fit: cover;">
+            </div>
+        </div>
+
+        <!-- Product Info -->
+        <div class="col-md-6">
+            <div class="product-info">
+                <h1 class="h2">@Model.Product.Name</h1>
+                <p class="text-muted">@Model.Product.Category.Name</p>
+
+                <div class="price-section mb-3">
+                    @if (Model.Product.OnSale)
+                    {
+                        <div class="d-flex align-items-center">
+                            <span class="h3 text-danger me-3">$@Model.Product.DiscountedPrice.ToString("F2")</span>
+                            <span class="h5 text-muted text-decoration-line-through">$@Model.Product.Price.ToString("F2")</span>
+                            <span class="badge bg-danger ms-2">Save @Model.Product.DiscountPercentage%</span>
+                        </div>
+                    }
+                    else
+                    {
+                        <span class="h3 text-success">$@Model.Product.Price.ToString("F2")</span>
+                    }
+                </div>
+
+                <p class="lead">@Model.Product.Description</p>
+
+                <!-- Product Details -->
+                <div class="product-details mb-4">
+                    @if (!string.IsNullOrEmpty(Model.Product.Size))
+                    {
+                        <div class="row mb-2">
+                            <div class="col-4"><strong>Size:</strong></div>
+                            <div class="col-8">@Model.Product.Size</div>
+                        </div>
+                    }
+
+                    @* @if (!string.IsNullOrEmpty(Model.Product.CareLevel))
+                    {
+                        <div class="row mb-2">
+                            <div class="col-4"><strong>Care Level:</strong></div>
+                            <div class="col-8">
+                                <span class="badge @(Model.Product.CareLevel == "Easy" ? "bg-success" : Model.Product.CareLevel == "Moderate" ? "bg-warning" : "bg-danger")">
+                                    @Model.Product.CareLevel
+                                </span>
+                            </div>
+                        </div>
+                    }
+
+                    @if (!string.IsNullOrEmpty(Model.Product.LightRequirements))
+                    {
+                        <div class="row mb-2">
+                            <div class="col-4"><strong>Light:</strong></div>
+                            <div class="col-8">@Model.Product.LightRequirements</div>
+                        </div>
+                    }
+
+                    @if (!string.IsNullOrEmpty(Model.Product.WateringNeeds))
+                    {
+                        <div class="row mb-2">
+                            <div class="col-4"><strong>Watering:</strong></div>
+                            <div class="col-8">@Model.Product.WateringNeeds</div>
+                        </div>
+                    } *@
+
+                    <div class="row mb-2">
+                        <div class="col-4"><strong>Availability:</strong></div>
+                        <div class="col-8">
+                            @if (Model.Product.StockQuantity > 0)
+                            {
+                                <span class="text-success">
+                                    <i class="fas fa-check-circle"></i> In Stock (@Model.Product.StockQuantity available)
+                                </span>
+                            }
+                            else
+                            {
+                                <span class="text-danger">
+                                    <i class="fas fa-times-circle"></i> Out of Stock
+                                </span>
+                            }
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Add to Cart -->
+                <div class="add-to-cart-section">
+                    @if (Model.Product.StockQuantity > 0)
+                    {
+                        <div class="row g-3 align-items-center">
+                            <div class="col-auto">
+                                <label for="quantity" class="col-form-label"><strong>Quantity:</strong></label>
+                            </div>
+                            <div class="col-auto">
+                                <div class="input-group" style="width: 130px;">
+                                    <button type="button" class="btn btn-outline-secondary quantity-decrease">
+                                        <i class="fas fa-minus"></i>
+                                    </button>
+                                    <input type="number" id="quantity" class="form-control text-center" value="1" min="1" max="@Model.Product.StockQuantity">
+                                    <button type="button" class="btn btn-outline-secondary quantity-increase">
+                                        <i class="fas fa-plus"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <button class="btn btn-success btn-lg w-100 add-to-cart"
+                                        data-product-id="@Model.Product.Id"
+                                        data-product-name="@Model.Product.Name">
+                                    <i class="fas fa-shopping-cart"></i> Add to Cart
+                                </button>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <button class="btn btn-secondary btn-lg w-100" disabled>
+                            Out of Stock
+                        </button>
+                    }
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="quick-actions mt-3">
+                    <div class="d-grid gap-2 d-md-flex">
+                        <a href="@Url.Action("Index", "Products")" class="btn btn-outline-secondary me-md-2">
+                            <i class="fas fa-arrow-left"></i> Continue Shopping
+                        </a>
+                        <a href="@Url.Action("Index", "ShoppingCart")" class="btn btn-outline-primary">
+                            <i class="fas fa-shopping-cart"></i> View Cart
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Related Products -->
+    @if (Model.RelatedProducts.Any())
+    {
+        <div class="row mt-5">
+            <div class="col-12">
+                <h3 class="mb-4">Related Products</h3>
+                <div class="row g-4">
+                    @foreach (var product in Model.RelatedProducts)
+                    {
+                        <div class="col-lg-3 col-md-4 col-sm-6">
+                            <div class="card product-card h-100">
+                                <div class="position-relative">
+                                    <img src="@product.ImageUrl" class="card-img-top" alt="@product.Name"
+                                         style="height: 200px; object-fit: cover;">
+                                    @if (product.OnSale)
+                                    {
+                                        <span class="position-absolute top-0 start-0 badge bg-danger m-2">Sale</span>
+                                    }
+                                </div>
+                                <div class="card-body d-flex flex-column">
+                                    <h5 class="card-title">@product.Name</h5>
+                                    <p class="card-text text-muted small flex-grow-1">@product.Description</p>
+                                    <div class="mt-auto">
+                                        @if (product.OnSale)
+                                        {
+                                            <div class="d-flex align-items-center mb-2">
+                                                <span class="text-danger h5 mb-0">$@product.DiscountedPrice.ToString("F2")</span>
+                                                <small class="text-muted text-decoration-line-through ms-2">$@product.Price.ToString("F2")</small>
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <p class="card-text text-success h5 mb-2">$@product.Price.ToString("F2")</p>
+                                        }
+                                        <div class="d-grid gap-2">
+                                            <a href="@Url.Action("Details", new { id = product.Id })"
+                                               class="btn btn-outline-success">View Details</a>
+                                            @if (product.StockQuantity > 0)
+                                            {
+                                                <button class="btn btn-success btn-sm add-to-cart-related"
+                                                        data-product-id="@product.Id"
+                                                        data-product-name="@product.Name">
+                                                    <i class="fas fa-cart-plus"></i> Add to Cart
+                                                </button>
+                                            }
+                                            else
+                                            {
+                                                <button class="btn btn-secondary btn-sm" disabled>
+                                                    Out of Stock
+                                                </button>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<!-- Toast Notification Container -->
+<div class="toast-container position-fixed top-0 end-0 p-3">
+    <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+            <i class="fas fa-shopping-cart text-success me-2"></i>
+            <strong class="me-auto">Shopping Cart</strong>
+            <small>Just now</small>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body" id="toast-message">
+            Product added to cart!
+        </div>
+    </div>
+</div>
+
+<style>
+    .product-card {
+        transition: transform 0.2s, box-shadow 0.2s;
+        border: none;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+
+    .quantity-decrease, .quantity-increase {
+        width: 40px;
+    }
+
+    #quantity {
+        border-left: none;
+        border-right: none;
+    }
+
+    /* Toast styles */
+    .toast {
+        background-color: white;
+        border-left: 4px solid #198754;
+    }
+
+        .toast.success {
+            border-left-color: #198754;
+        }
+
+        .toast.error {
+            border-left-color: #dc3545;
+        }
+
+        .toast.warning {
+            border-left-color: #ffc107;
+        }
+
+    .quick-actions .btn {
+        flex: 1;
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Initialize Bootstrap toast
+        const toastEl = document.getElementById('liveToast');
+        const toast = new bootstrap.Toast(toastEl, { delay: 4000 });
+
+        const quantityInput = document.getElementById('quantity');
+        const addToCartBtn = document.querySelector('.add-to-cart');
+
+        // Quantity controls
+        document.querySelector('.quantity-decrease')?.addEventListener('click', function() {
+            let quantity = parseInt(quantityInput.value) || 1;
+            if (quantity > 1) {
+                quantity--;
+                quantityInput.value = quantity;
+                updateButtonStates();
+            }
+        });
+
+        document.querySelector('.quantity-increase')?.addEventListener('click', function() {
+            let quantity = parseInt(quantityInput.value) || 1;
+            const maxQuantity = parseInt(quantityInput.getAttribute('max'));
+            if (quantity < maxQuantity) {
+                quantity++;
+                quantityInput.value = quantity;
+                updateButtonStates();
+            }
+        });
+
+        quantityInput?.addEventListener('change', function() {
+            let quantity = parseInt(this.value) || 1;
+            const maxQuantity = parseInt(this.getAttribute('max'));
+            if (quantity < 1) quantity = 1;
+            if (quantity > maxQuantity) quantity = maxQuantity;
+            this.value = quantity;
+            updateButtonStates();
+        });
+
+        // Update button states based on quantity
+        function updateButtonStates() {
+            const quantity = parseInt(quantityInput.value) || 1;
+            const maxQuantity = parseInt(quantityInput.getAttribute('max'));
+
+            const decreaseBtn = document.querySelector('.quantity-decrease');
+            const increaseBtn = document.querySelector('.quantity-increase');
+
+            if (decreaseBtn) {
+                decreaseBtn.disabled = quantity <= 1;
+            }
+            if (increaseBtn) {
+                increaseBtn.disabled = quantity >= maxQuantity;
+            }
+        }
+
+        // Main add to cart functionality
+        if (addToCartBtn) {
+            addToCartBtn.addEventListener('click', function() {
+                const productId = this.getAttribute('data-product-id');
+                const productName = this.getAttribute('data-product-name');
+                const quantity = parseInt(quantityInput.value) || 1;
+
+                addToCart(productId, productName, quantity, this);
+            });
+        }
+
+        // Related products add to cart
+        document.querySelectorAll('.add-to-cart-related').forEach(button => {
+            button.addEventListener('click', function() {
+                const productId = this.getAttribute('data-product-id');
+                const productName = this.getAttribute('data-product-name');
+                const quantity = 1;
+
+                addToCart(productId, productName, quantity, this);
+            });
+        });
+
+        // Generic add to cart function
+        function addToCart(productId, productName, quantity, buttonElement) {
+            // Show loading state
+            debugger;
+            const originalText = buttonElement.innerHTML;
+            buttonElement.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Adding...';
+            buttonElement.disabled = true;
+
+            fetch('/ShoppingCart/AddToCart', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-Requested-With': 'XMLHttpRequest'
+                },
+                body: JSON.stringify({ productId: productId, quantity: quantity })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Update cart count in navbar
+                    updateCartCount(data.cartCount);
+
+                    // Show success message
+                    const message = quantity > 1
+                        ? `Added ${quantity} "${productName}" to cart!`
+                        : `"${productName}" added to cart!`;
+                    showToast(message, 'success');
+                } else {
+                    showToast(data.message, 'error');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                showToast('Error adding product to cart', 'error');
+            })
+            .finally(() => {
+                // Restore button state
+                buttonElement.innerHTML = originalText;
+                buttonElement.disabled = false;
+            });
+        }
+
+        // Helper function to update cart count
+        function updateCartCount(count) {
+            const cartCountElements = document.querySelectorAll('.cart-count');
+            cartCountElements.forEach(element => {
+                element.textContent = count;
+            });
+        }
+
+        // Helper function to show toast messages
+        function showToast(message, type = 'success') {
+            const toastMessage = document.getElementById('toast-message');
+            const toastEl = document.getElementById('liveToast');
+
+            // Set message and type
+            toastMessage.textContent = message;
+            toastEl.className = 'toast ' + type;
+
+            // Show toast
+            toast.show();
+        }
+
+        // Load initial cart count
+        updateCartCountOnLoad();
+
+        // Function to load initial cart count
+        function updateCartCountOnLoad() {
+            fetch('/ShoppingCart/GetCartCount')
+                .then(response => response.json())
+                .then(data => {
+                    updateCartCount(data.count);
+                })
+                .catch(error => {
+                    console.error('Error fetching cart count:', error);
+                });
+        }
+
+        // Initialize button states
+        updateButtonStates();
+    });
+</script>
